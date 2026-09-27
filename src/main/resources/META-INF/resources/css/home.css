@@ -1,0 +1,352 @@
+:root {
+    --black: #0a0a0a;
+    --ivory: #f7f5f1;
+    --gold: #c6a15b;
+    --gold-dark: #9c7c3f;
+    --gray: #6b6b6b;
+    --font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
+    --font-sans: 'Montserrat', Arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--ivory);
+    color: var(--black);
+    font-family: var(--font-sans);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Topbar */
+.topbar {
+    background: var(--black);
+    color: var(--gold);
+    text-align: center;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    padding: 0.6rem 1rem;
+    font-weight: 400;
+}
+
+/* Header */
+.main-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 3rem;
+    background: var(--ivory);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.nav {
+    display: flex;
+    gap: 2rem;
+    flex: 1;
+}
+
+.nav-right {
+    justify-content: flex-end;
+}
+
+.nav a {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.nav a:hover {
+    color: var(--gold-dark);
+}
+
+.logo {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    letter-spacing: 0.35em;
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Hero */
+.hero {
+    background: var(--black);
+    color: var(--ivory);
+    text-align: center;
+    padding: 8rem 1.5rem;
+}
+
+.hero-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-size: 0.75rem;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+}
+
+.hero-title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(3rem, 9vw, 7rem);
+    letter-spacing: 0.2em;
+    margin: 0 0 1.5rem;
+}
+
+.hero-subtitle {
+    max-width: 36rem;
+    margin: 0 auto 2.5rem;
+    color: #cfcfcf;
+    font-weight: 300;
+    line-height: 1.8;
+}
+
+.btn-outline {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 0.9rem 2.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: background 0.25s ease, color 0.25s ease;
+}
+
+.btn-outline:hover {
+    background: var(--gold);
+    color: var(--black);
+}
+
+/* Section headings */
+.section-eyebrow {
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-size: 0.75rem;
+    color: var(--gold-dark);
+    margin-bottom: 0.75rem;
+}
+
+.section-title {
+    text-align: center;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 2.5rem;
+    letter-spacing: 0.05em;
+    margin: 0 0 3.5rem;
+}
+
+/* Categories */
+.categories {
+    padding: 6rem 3rem;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.category-card {
+    text-align: center;
+}
+
+.category-media {
+    height: 320px;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(160deg, #1a1a1a 0%, #3a3a3a 55%, #c6a15b 130%);
+}
+
+.category-card h3 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.75rem;
+}
+
+.category-card p {
+    color: var(--gray);
+    font-weight: 300;
+    line-height: 1.7;
+    font-size: 0.9rem;
+    margin: 0 0 1rem;
+}
+
+.link-gold {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    border-bottom: 1px solid var(--gold-dark);
+    padding-bottom: 2px;
+}
+
+/* Story */
+.story {
+    background: var(--black);
+    color: var(--ivory);
+    text-align: center;
+    padding: 6rem 1.5rem;
+}
+
+.story .section-eyebrow {
+    color: var(--gold);
+}
+
+.divider {
+    display: inline-block;
+    width: 2px;
+    height: 3rem;
+    background: var(--gold);
+    margin: 0 auto 1.5rem;
+}
+
+.story-title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 2.25rem;
+    letter-spacing: 0.05em;
+    margin: 0 0 2rem;
+}
+
+.story-text {
+    max-width: 42rem;
+    margin: 0 auto 1.5rem;
+    color: #cfcfcf;
+    font-weight: 300;
+    line-height: 1.9;
+}
+
+/* Newsletter */
+.newsletter {
+    text-align: center;
+    padding: 5rem 1.5rem;
+}
+
+.newsletter h2 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 1.75rem;
+    letter-spacing: 0.03em;
+    margin: 0 0 2rem;
+}
+
+.newsletter-form {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    max-width: 30rem;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.newsletter-form input {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.9rem 1.2rem;
+    border: 1px solid var(--black);
+    background: transparent;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+}
+
+.newsletter-form button {
+    padding: 0.9rem 1.8rem;
+    background: var(--black);
+    color: var(--ivory);
+    border: 1px solid var(--black);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.newsletter-form button:hover {
+    background: var(--gold-dark);
+    border-color: var(--gold-dark);
+}
+
+/* Footer */
+footer {
+    background: var(--black);
+    color: #ccc;
+    padding: 4rem 3rem 2rem;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+}
+
+.footer-logo {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    letter-spacing: 0.25em;
+    color: var(--ivory);
+    margin: 0 0 0.75rem;
+}
+
+footer h4 {
+    color: var(--gold);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    margin: 0 0 1rem;
+    font-weight: 500;
+}
+
+footer a {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 300;
+    margin-bottom: 0.6rem;
+    color: #ccc;
+}
+
+footer a:hover {
+    color: var(--gold);
+}
+
+.copyright {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #888;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1.5rem;
+    letter-spacing: 0.05em;
+}
+
+@media (max-width: 720px) {
+    .main-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    .nav {
+        justify-content: center;
+    }
+    .hero {
+        padding: 5rem 1.5rem;
+    }
+}
+
+.nav-user {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+}

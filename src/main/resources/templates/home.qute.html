@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{storeName} — {tagline}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+
+<div class="topbar">
+    ATELIÊ EXCLUSIVO &nbsp;·&nbsp; ENTREGA MUNDIAL &nbsp;·&nbsp; PEÇAS NUMERADAS
+</div>
+
+<header class="main-header">
+    <nav class="nav nav-left">
+        <a href="#colecao">Coleção</a>
+        <a href="#sobre">Maison</a>
+    </nav>
+
+    <a href="#topo" class="logo">{storeName}</a>
+
+    <nav class="nav nav-right">
+        <a href="#contato">Contato</a>
+        <a href="#newsletter">Newsletter</a>
+        <span class="nav-user">Olá, {nomeDoUsuario}</span>
+        <a href="/auth/logout">Sair</a>
+    </nav>
+</header>
+
+<section class="hero" id="topo">
+    <p class="hero-eyebrow">{tagline}</p>
+    <h1 class="hero-title">{storeName}</h1>
+    <p class="hero-subtitle">Alta costura e prêt-à-porter para quem escreve a própria história com elegância atemporal.</p>
+    <a href="#colecao" class="btn-outline">Descobrir a Coleção</a>
+</section>
+
+<section class="categories" id="colecao">
+    <p class="section-eyebrow">Coleção</p>
+    <h2 class="section-title">Universo {storeName}</h2>
+
+    <div class="category-grid">
+        {#for category in categories}
+        <article class="category-card">
+            <div class="category-media"></div>
+            <h3>{category.name}</h3>
+            <p>{category.description}</p>
+            <a href="#" class="link-gold">Ver mais</a>
+        </article>
+        {/for}
+    </div>
+</section>
+
+<section class="story" id="sobre">
+    <span class="divider"></span>
+    <p class="section-eyebrow">Nossa Maison</p>
+    <h2 class="story-title">Tradição, ousadia e savoir-faire</h2>
+    <p class="story-text">
+        Desde a fundação do nosso ateliê, cada peça nasce do encontro entre a alfaiataria clássica francesa
+        e um olhar contemporâneo sobre a moda. Trabalhamos com tecidos nobres e acabamento artesanal,
+        assinando cada criação com a exclusividade que só a alta costura pode oferecer.
+    </p>
+    <span class="divider"></span>
+</section>
+
+<section class="newsletter" id="newsletter">
+    <h2>Receba nossas novidades em primeira mão</h2>
+    <form class="newsletter-form">
+        <input type="email" placeholder="Seu melhor e-mail" required>
+        <button type="submit">Assinar</button>
+    </form>
+</section>
+
+<footer id="contato">
+    <div class="footer-grid">
+        <div>
+            <p class="footer-logo">{storeName}</p>
+            <p>Alta costura parisiense, feita à mão.</p>
+        </div>
+        <div>
+            <h4>Institucional</h4>
+            <a href="#sobre">A Maison</a>
+            <a href="#">Sustentabilidade</a>
+            <a href="#">Carreiras</a>
+        </div>
+        <div>
+            <h4>Atendimento</h4>
+            <a href="#">Trocas e Devoluções</a>
+            <a href="#">Guia de Medidas</a>
+            <a href="#">Fale Conosco</a>
+        </div>
+        <div>
+            <h4>Redes Sociais</h4>
+            <a href="#">Instagram</a>
+            <a href="#">Pinterest</a>
+        </div>
+    </div>
+    <p class="copyright">&copy; 2026 {storeName}. Todos os direitos reservados.</p>
+</footer>
+
+</body>
+</html>

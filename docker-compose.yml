@@ -1,0 +1,10 @@
+services:
+  sams-db:
+    image: postgres:16
+    container_name: sams-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=sams
+    ports:
+      - 5435:5432

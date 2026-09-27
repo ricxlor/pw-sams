@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar conta — {storeName}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <script src="/js/cadastro.js" defer></script>
+</head>
+<body class="login-page">
+
+<div class="topbar">
+    ATELIÊ EXCLUSIVO &nbsp;·&nbsp; ENTREGA MUNDIAL &nbsp;·&nbsp; PEÇAS NUMERADAS
+</div>
+
+<main class="login-wrapper">
+    <section class="login-card">
+        <p class="login-logo">{storeName}</p>
+        <span class="divider"></span>
+        <p class="section-eyebrow">Bem-vindo à Maison</p>
+        <h1 class="login-title">Crie sua conta</h1>
+
+        <form id="cadastroForm" class="login-form" novalidate>
+            <label for="nome">Nome completo</label>
+            <input type="text" id="nome" name="nome" placeholder="Seu nome" autocomplete="name" maxlength="120" required>
+
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="seu@email.com" autocomplete="email" required>
+
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" placeholder="Mínimo de 6 caracteres" autocomplete="new-password" minlength="6" required>
+
+            <label for="confirmacaoSenha">Confirmar senha</label>
+            <input type="password" id="confirmacaoSenha" name="confirmacaoSenha" placeholder="Repita a senha" autocomplete="new-password" required>
+
+            <p id="cadastroErro" class="login-erro" role="alert" hidden></p>
+
+            <button type="submit" class="btn-login">Criar conta</button>
+        </form>
+
+        <p class="login-alternativa">Já tem conta? <a href="/auth/login" class="link-gold">Entrar</a></p>
+    </section>
+</main>
+
+<p class="copyright login-copyright">&copy; 2026 {storeName}. Todos os direitos reservados.</p>
+
+</body>
+</html>

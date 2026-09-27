@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrar — {storeName}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <script src="/js/login.js" defer></script>
+</head>
+<body class="login-page">
+
+<div class="topbar">
+    ATELIÊ EXCLUSIVO &nbsp;·&nbsp; ENTREGA MUNDIAL &nbsp;·&nbsp; PEÇAS NUMERADAS
+</div>
+
+<main class="login-wrapper">
+    <section class="login-card">
+        <p class="login-logo">{storeName}</p>
+        <span class="divider"></span>
+        <p class="section-eyebrow">Área Exclusiva</p>
+        <h1 class="login-title">Acesse sua conta</h1>
+
+        <p id="loginSucesso" class="login-sucesso" role="status" hidden>Conta criada com sucesso! Faça seu login.</p>
+
+        <form id="loginForm" class="login-form" novalidate>
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="seu@email.com" autocomplete="username" required>
+
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" placeholder="••••••••" autocomplete="current-password" required>
+
+            <p id="loginErro" class="login-erro" role="alert" hidden></p>
+
+            <button type="submit" class="btn-login">Entrar</button>
+        </form>
+
+        <p class="login-alternativa">Ainda não tem conta? <a href="/usuarios/cadastro" class="link-gold">Criar conta</a></p>
+    </section>
+</main>
+
+<p class="copyright login-copyright">&copy; 2026 {storeName}. Todos os direitos reservados.</p>
+
+</body>
+</html>
