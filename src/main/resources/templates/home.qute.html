@@ -26,6 +26,9 @@
     <nav class="nav nav-right">
         <a href="#contato">Contato</a>
         <a href="#newsletter">Newsletter</a>
+        {#if ehAdmin}
+        <a href="/admin/usuarios">Usuários</a>
+        {/if}
         <span class="nav-user">Olá, {nomeDoUsuario}</span>
         <a href="/auth/logout">Sair</a>
     </nav>

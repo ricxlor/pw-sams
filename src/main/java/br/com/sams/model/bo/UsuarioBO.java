@@ -2,6 +2,7 @@ package br.com.sams.model.bo;
 
 import br.com.sams.model.dao.UsuarioDAO;
 import br.com.sams.model.dto.CadastroUsuarioDTO;
+import br.com.sams.model.dto.UsuarioAdminDTO;
 import br.com.sams.model.entity.TipoUsuario;
 import br.com.sams.model.entity.Usuario;
 import io.quarkus.qute.Template;
@@ -69,6 +70,78 @@ public class UsuarioBO {
         usuarioDAO.save(usuario);
     }
 
+    @Transactional
+    public Response criarPeloAdmin(UsuarioAdminDTO dto) {
+        String erro = validarDadosAdmin(dto);
+        if (erro == null && estaVazio(dto.senha())) {
+            erro = "Informe uma senha.";
+        }
+        if (erro != null) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(Map.of("error", erro))
+                    .build();
+        }
+
+        if (existeEmail(dto.email())) {
+            return Response.status(Response.Status.CONFLICT)
+                    .entity(Map.of("error", "Já existe uma conta com este e-mail."))
+                    .build();
+        }
+
+        criarUsuario(dto.nome().trim(), dto.email(), dto.senha(), TipoUsuario.valueOf(dto.tipo()));
+
+        return Response.status(Response.Status.CREATED)
+                .entity(Map.of("message", "Usuário criado com sucesso!"))
+                .build();
+    }
+
+    @Transactional
+    public Response atualizar(Integer id, UsuarioAdminDTO dto) {
+        Usuario usuario = usuarioDAO.find(id);
+        if (usuario == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(Map.of("error", "Usuário não encontrado."))
+                    .build();
+        }
+
+        String erro = validarDadosAdmin(dto);
+        if (erro != null) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(Map.of("error", erro))
+                    .build();
+        }
+
+        String email = normalizarEmail(dto.email());
+        Usuario donoDoEmail = usuarioDAO.findByEmail(email);
+        if (donoDoEmail != null && !donoDoEmail.getId().equals(id)) {
+            return Response.status(Response.Status.CONFLICT)
+                    .entity(Map.of("error", "Já existe uma conta com este e-mail."))
+                    .build();
+        }
+
+        usuario.setNome(dto.nome().trim());
+        usuario.setEmail(email);
+        usuario.setTipo(TipoUsuario.valueOf(dto.tipo()));
+        if (!estaVazio(dto.senha())) {
+            usuario.setSenha(passwordEncoder.encode(dto.senha()));
+        }
+        usuarioDAO.save(usuario);
+
+        return Response.ok(Map.of("message", "Usuário atualizado com sucesso!")).build();
+    }
+
+    @Transactional
+    public Response excluir(Integer id) {
+        if (usuarioDAO.find(id) == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(Map.of("error", "Usuário não encontrado."))
+                    .build();
+        }
+
+        usuarioDAO.delete(id);
+        return Response.ok(Map.of("message", "Usuário excluído com sucesso!")).build();
+    }
+
     public boolean existeEmail(String email) {
         return usuarioDAO.findByEmail(normalizarEmail(email)) != null;
     }
@@ -91,6 +164,34 @@ public class UsuarioBO {
             return "As senhas não coincidem.";
         }
         return null;
+    }
+
+    private String validarDadosAdmin(UsuarioAdminDTO dto) {
+        if (dto == null || estaVazio(dto.nome()) || estaVazio(dto.email()) || estaVazio(dto.tipo())) {
+            return "Preencha nome, e-mail e tipo.";
+        }
+        if (dto.nome().trim().length() > TAMANHO_MAXIMO_NOME) {
+            return "O nome deve ter no máximo " + TAMANHO_MAXIMO_NOME + " caracteres.";
+        }
+        if (!FORMATO_EMAIL.matcher(dto.email().trim()).matches()) {
+            return "Informe um e-mail válido.";
+        }
+        if (!tipoValido(dto.tipo())) {
+            return "Tipo de usuário inválido.";
+        }
+        if (!estaVazio(dto.senha()) && dto.senha().length() < TAMANHO_MINIMO_SENHA) {
+            return "A senha deve ter pelo menos " + TAMANHO_MINIMO_SENHA + " caracteres.";
+        }
+        return null;
+    }
+
+    private static boolean tipoValido(String tipo) {
+        try {
+            TipoUsuario.valueOf(tipo);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 
     private static boolean estaVazio(String valor) {

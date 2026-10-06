@@ -1,6 +1,7 @@
 package br.com.sams.model.bo;
 
 import br.com.sams.model.Category;
+import br.com.sams.model.entity.TipoUsuario;
 import br.com.sams.model.entity.Usuario;
 import io.quarkus.qute.Template;
 import jakarta.enterprise.context.Dependent;
@@ -30,7 +31,8 @@ public class HomeBO {
         return Response.ok(home.data("storeName", "SAMS")
                         .data("tagline", "Alta Costura Parisiense desde 1954")
                         .data("categories", categorias())
-                        .data("nomeDoUsuario", usuarioLogado.getNome()))
+                        .data("nomeDoUsuario", usuarioLogado.getNome())
+                        .data("ehAdmin", usuarioLogado.getTipo() == TipoUsuario.ADMIN))
                 .build();
     }
 

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar usuários — {storeName}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <script src="/js/admin-usuarios.js" defer></script>
+</head>
+<body>
+
+<div class="topbar">
+    PAINEL ADMINISTRATIVO
+</div>
+
+<header class="main-header">
+    <nav class="nav nav-left">
+        <a href="/home">Loja</a>
+        <a href="/admin/usuarios">Usuários</a>
+    </nav>
+
+    <a href="/home" class="logo">{storeName}</a>
+
+    <nav class="nav nav-right">
+        <span class="nav-user">Olá, {nomeDoUsuario}</span>
+        <a href="/auth/logout">Sair</a>
+    </nav>
+</header>
+
+<main class="admin-wrapper">
+    <div class="admin-header">
+        <div>
+            <p class="section-eyebrow admin-eyebrow">Administração</p>
+            <h1 class="admin-title">Usuários</h1>
+        </div>
+        <button type="button" id="btnNovoUsuario" class="btn-admin">Novo usuário</button>
+    </div>
+
+    <div class="admin-table-wrapper">
+        <table class="admin-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Tipo</th>
+                <th class="col-acoes">Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            {#for usuario in usuarios}
+            <tr data-id="{usuario.id}" data-nome="{usuario.nome}" data-email="{usuario.email}" data-tipo="{usuario.tipo}">
+                <td>{usuario.id}</td>
+                <td>{usuario.nome}</td>
+                <td>{usuario.email}</td>
+                <td><span class="badge badge-{usuario.tipo}">{usuario.tipo}</span></td>
+                <td class="col-acoes">
+                    <button type="button" class="btn-acao" data-acao="editar">Editar</button>
+                    {#if usuario.id == idUsuarioLogado}
+                    <button type="button" class="btn-acao btn-acao-perigo" disabled title="Você não pode excluir a sua própria conta">Excluir</button>
+                    {#else}
+                    <button type="button" class="btn-acao btn-acao-perigo" data-acao="excluir">Excluir</button>
+                    {/if}
+                </td>
+            </tr>
+            {#else}
+            <tr>
+                <td colspan="5" class="admin-vazio">Nenhum usuário cadastrado.</td>
+            </tr>
+            {/for}
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<dialog id="modalEditar" class="admin-modal" data-id-usuario-logado="{idUsuarioLogado}">
+    <form id="formEditar" class="login-form" novalidate>
+        <p class="section-eyebrow admin-eyebrow" id="editarEyebrow">Editar usuário</p>
+        <h2 class="admin-modal-title" id="editarTitulo"></h2>
+
+        <label for="editarNome">Nome completo</label>
+        <input type="text" id="editarNome" maxlength="120" required>
+
+        <label for="editarEmail">E-mail</label>
+        <input type="email" id="editarEmail" required>
+
+        <label for="editarTipo">Tipo</label>
+        <select id="editarTipo">
+            <option value="CLIENTE">Cliente</option>
+            <option value="ADMIN">Administrador</option>
+        </select>
+
+        <label for="editarSenha" id="editarSenhaLabel">Nova senha</label>
+        <input type="password" id="editarSenha" placeholder="Deixe em branco para manter a atual" autocomplete="new-password" minlength="6">
+
+        <p id="editarErro" class="login-erro" role="alert" hidden></p>
+
+        <div class="admin-modal-acoes">
+            <button type="button" class="btn-acao" data-fechar>Cancelar</button>
+            <button type="submit" class="btn-admin">Salvar</button>
+        </div>
+    </form>
+</dialog>
+
+<dialog id="modalExcluir" class="admin-modal">
+    <p class="section-eyebrow admin-eyebrow">Excluir usuário</p>
+    <h2 class="admin-modal-title">Tem certeza?</h2>
+    <p class="admin-modal-texto">
+        O usuário <strong id="excluirNome"></strong> será excluído permanentemente. Esta ação não pode ser desfeita.
+    </p>
+
+    <p id="excluirErro" class="login-erro" role="alert" hidden></p>
+
+    <div class="admin-modal-acoes">
+        <button type="button" class="btn-acao" data-fechar>Cancelar</button>
+        <button type="button" id="confirmarExcluir" class="btn-admin btn-admin-perigo">Excluir</button>
+    </div>
+</dialog>
+
+<p class="copyright admin-copyright">&copy; 2026 {storeName}. Todos os direitos reservados.</p>
+
+</body>
+</html>
