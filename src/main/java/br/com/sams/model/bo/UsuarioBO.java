@@ -26,11 +26,13 @@ public class UsuarioBO {
     private final Template cadastro;
     private final UsuarioDAO usuarioDAO;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final LogBO logBO;
 
-    public UsuarioBO(Template cadastro, UsuarioDAO usuarioDAO, BCryptPasswordEncoder passwordEncoder) {
+    public UsuarioBO(Template cadastro, UsuarioDAO usuarioDAO, BCryptPasswordEncoder passwordEncoder, LogBO logBO) {
         this.cadastro = requireNonNull(cadastro, "cadastro is required");
         this.usuarioDAO = requireNonNull(usuarioDAO, "usuarioDAO is required");
         this.passwordEncoder = requireNonNull(passwordEncoder, "passwordEncoder is required");
+        this.logBO = requireNonNull(logBO, "logBO is required");
     }
 
     public Response paginaCadastro() {
@@ -53,7 +55,8 @@ public class UsuarioBO {
                     .build();
         }
 
-        criarUsuario(dto.nome().trim(), email, dto.senha(), TipoUsuario.CLIENTE);
+        Usuario usuario = criarUsuario(dto.nome().trim(), email, dto.senha(), TipoUsuario.CLIENTE);
+        logBO.registrarAcao(usuario, "CADASTRO_USUARIO - Novo usuário: " + usuario.getEmail());
 
         return Response.status(Response.Status.CREATED)
                 .entity(Map.of("message", "Conta criada com sucesso!"))
@@ -61,13 +64,14 @@ public class UsuarioBO {
     }
 
     @Transactional
-    public void criarUsuario(String nome, String email, String senha, TipoUsuario tipo) {
+    public Usuario criarUsuario(String nome, String email, String senha, TipoUsuario tipo) {
         Usuario usuario = new Usuario();
         usuario.setNome(nome);
         usuario.setEmail(normalizarEmail(email));
         usuario.setSenha(passwordEncoder.encode(senha));
         usuario.setTipo(tipo);
         usuarioDAO.save(usuario);
+        return usuario;
     }
 
     @Transactional

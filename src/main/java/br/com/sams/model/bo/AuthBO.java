@@ -24,11 +24,13 @@ public class AuthBO {
     private final Template login;
     private final UsuarioDAO usuarioDAO;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final LogBO logBO;
 
-    public AuthBO(Template login, UsuarioDAO usuarioDAO, BCryptPasswordEncoder passwordEncoder) {
+    public AuthBO(Template login, UsuarioDAO usuarioDAO, BCryptPasswordEncoder passwordEncoder, LogBO logBO) {
         this.login = requireNonNull(login, "login is required");
         this.usuarioDAO = requireNonNull(usuarioDAO, "usuarioDAO is required");
         this.passwordEncoder = requireNonNull(passwordEncoder, "passwordEncoder is required");
+        this.logBO = requireNonNull(logBO, "logBO is required");
     }
 
     public Response paginaLogin() {
@@ -39,17 +41,25 @@ public class AuthBO {
         Usuario usuario = loginDTO == null ? null : validarLogin(loginDTO.email(), loginDTO.senha());
 
         if (usuario == null) {
+            String emailTentado = loginDTO == null ? null : loginDTO.email();
+            logBO.registrarAcao(null, "LOGIN_FALHA - Tentativa com e-mail: " + emailTentado);
             return Response.status(Response.Status.UNAUTHORIZED)
                     .entity(Map.of("error", "E-mail ou senha inválidos"))
                     .build();
         }
 
+        logBO.registrarAcao(usuario, "LOGIN_SUCESSO");
         return Response.ok(Map.of("message", "Login bem-sucedido!"))
                 .cookie(cookieSessao(usuario.getId().toString(), DURACAO_SESSAO_SEGUNDOS))
                 .build();
     }
 
-    public Response logout() {
+    public Response logout(String userId) {
+        Usuario usuario = usuarioDoCookie(userId);
+        if (usuario != null) {
+            logBO.registrarAcao(usuario, "LOGOUT");
+        }
+
         return redirecionarParaLogin()
                 .cookie(cookieSessao("", 0))
                 .build();

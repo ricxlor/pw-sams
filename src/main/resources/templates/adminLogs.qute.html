@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logs de auditoria — {storeName}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <script src="/js/admin-logs.js" defer></script>
+</head>
+<body>
+
+<div class="topbar">
+    PAINEL ADMINISTRATIVO
+</div>
+
+<header class="main-header">
+    <nav class="nav nav-left">
+        <a href="/home">Loja</a>
+        <a href="/admin/usuarios">Usuários</a>
+        <a href="/admin/logs">Logs</a>
+    </nav>
+
+    <a href="/home" class="logo">{storeName}</a>
+
+    <nav class="nav nav-right">
+        <span class="nav-user">Olá, {nomeDoUsuario}</span>
+        <a href="/auth/logout">Sair</a>
+    </nav>
+</header>
+
+<main class="admin-wrapper">
+    <div class="admin-header">
+        <div>
+            <p class="section-eyebrow admin-eyebrow">Auditoria</p>
+            <h1 class="admin-title">Logs do sistema</h1>
+            <p class="admin-subtitulo">Ações recentes dos usuários e do sistema.</p>
+        </div>
+        <input type="search" id="filtro" class="admin-filtro" placeholder="Filtrar por ação ou e-mail..." aria-label="Filtrar logs">
+    </div>
+
+    <p id="logsErro" class="admin-erro" role="alert" hidden></p>
+
+    <div class="admin-table-wrapper">
+        <table class="admin-table" id="logTable">
+            <thead>
+            <tr>
+                <th>Data e hora</th>
+                <th>Usuário</th>
+                <th>Ação</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td colspan="3" class="admin-vazio">Carregando...</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<p class="copyright admin-copyright">&copy; 2026 {storeName}. Todos os direitos reservados.</p>
+
+</body>
+</html>

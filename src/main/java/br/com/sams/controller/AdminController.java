@@ -26,6 +26,20 @@ public class AdminController {
         return adminBO.paginaUsuarios(userId);
     }
 
+    @GET
+    @Path("/logs")
+    @Produces(MediaType.TEXT_HTML)
+    public Response getLogsPage(@CookieParam(AuthBO.COOKIE_USER_ID) String userId) {
+        return adminBO.paginaLogs(userId);
+    }
+
+    @GET
+    @Path("/logs/data")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getLogsData(@CookieParam(AuthBO.COOKIE_USER_ID) String userId) {
+        return adminBO.dadosLogs(userId);
+    }
+
     @POST
     @Path("/usuarios")
     @Consumes(MediaType.APPLICATION_JSON)

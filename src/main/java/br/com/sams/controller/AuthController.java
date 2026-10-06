@@ -35,7 +35,7 @@ public class AuthController {
 
     @GET
     @Path("/logout")
-    public Response doLogout() {
-        return authBO.logout();
+    public Response doLogout(@CookieParam(AuthBO.COOKIE_USER_ID) String userId) {
+        return authBO.logout(userId);
     }
 }
